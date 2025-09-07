@@ -13,16 +13,33 @@ This is the official website for **Open Source Kashmir (OSK)** — a community-d
 We are part of **Hacktoberfest 2025 🎉** and welcome contributors of all skill levels. Whether you’re new to open source or experienced, this is a great place to contribute.  
 
 ---
+## 🤝 Contribution Guidelines
 
-## 📖 What’s Inside
-The website will contain:
-- ✅ Home Page (done 🎊)
-- 🌟 Mentors Page (cards with mentor details & connect buttons)
-- 🎓 Open Source Programs Page (GSoC, LFX, Outreachy, C4GT, SoB, etc.)
-- 🧑‍🤝‍🧑 Community Contributors Wall
-- 📅 Events Page (hackathons, sprints, meetups)
-- 📢 About the Community
-- 📲 Social Media & GitHub Links  
+We welcome all contributions — code, documentation, design, and ideas.
+
+### ✅ Good First Issues
+
+- Add new mentor card to Mentors Page
+
+- Create program card for LFX, GSoC, Outreachy, C4GT
+
+- Improve About Us section
+
+- Add new resources (guides, blogs, YouTube links)
+
+- Enhance UI/UX styling
+
+## ⚠️ Hacktoberfest Rules (Important)
+
+- PRs must be created between Oct 1–31, 2025
+
+- PRs must be meaningful (no spam, no random text, no whitespace-only changes)
+
+- Low-quality PRs will be marked as spam or invalid and won’t count
+
+- Valid PRs must be merged, approved, or labeled hacktoberfest-accepted
+
+📖 More details: [Hacktoberfest Rules](https://hacktoberfest.com/)
 
 ---
 
@@ -72,14 +89,6 @@ Here are some ways you can contribute:
 - Push and open a Pull Request (PR).
 
 ✅ Tip: Small contributions are welcome — even adding one mentor card is a valid PR.
-
-## ✅ Hacktoberfest Guidelines
-
-- Pull Requests must be meaningful (not just typos).
-
-- Follow our Code of Conduct.
-
-- Tag your PR with relevant labels (hacktoberfest, good first issue).
 
 
 ## 🤝 Join the Community
