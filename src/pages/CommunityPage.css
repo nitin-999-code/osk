@@ -1,5 +1,11 @@
 body {
   overscroll-behavior: none;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.community-page{
+  min-height: 100vh;
 }
 
 .community-container {

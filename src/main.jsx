@@ -6,7 +6,7 @@ import CommunityPage from './pages/CommunityPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App /> 
-    {/* <CommunityPage/> */}
+    {/* <App />  */}
+    <CommunityPage/>
   </StrictMode>,
 )
