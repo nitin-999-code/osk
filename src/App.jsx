@@ -19,7 +19,7 @@ export default function App() {
 
       {/* About Section */}
       <section className="about">
-        <h2>About Us</h2>
+        <h2 className='font-bold'>About Us</h2>
         <p>
           We are building an open source ecosystem in Kashmir to help developers learn, 
           build, and contribute to global projects. Through projects, mentorship, and events, 
