@@ -84,6 +84,14 @@ const Home = () => {
               >
                 Join GitHub
               </a>
+              <a 
+                href="https://discord.gg/gEHBwfDX" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="btn btn-secondary"
+              >
+                Join Discord
+              </a>
             </div>
           </div>
           <div className="hero-visual">

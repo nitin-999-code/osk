@@ -43,6 +43,15 @@ const Navbar = () => {
           >
             GitHub
           </a>
+          <a 
+            href="https://discord.gg/gEHBwfDX" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="nav-link discord-link"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Discord
+          </a>
         </div>
 
         <div className="nav-toggle" onClick={toggleMenu}>

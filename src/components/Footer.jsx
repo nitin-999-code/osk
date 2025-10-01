@@ -27,7 +27,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a 
-                href="https://twitter.com/opensourcekm" 
+                href="/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="social-link"
@@ -38,7 +38,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a 
-                href="https://linkedin.com/company/open-source-kashmir" 
+                href="/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="social-link"
@@ -77,10 +77,10 @@ const Footer = () => {
           <div className="footer-section">
             <h4 className="footer-title">Get In Touch</h4>
             <div className="footer-links">
-              <a href="mailto:contact@opensourcekashmir.org" className="footer-link">
-                contact@opensourcekashmir.org
+              <a href="mailto:opensourcekashmir@gmail.com" className="footer-link">
+                opensourcekashmir@gmail.com
               </a>
-              <a href="https://discord.gg/opensourcekashmir" className="footer-link">
+              <a href="https://discord.gg/gEHBwfDX" className="footer-link">
                 Join our Discord
               </a>
               <a href="https://github.com/Open-Source-Kashmir" className="footer-link">
