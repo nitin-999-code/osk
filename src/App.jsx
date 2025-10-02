@@ -11,6 +11,7 @@ import ThemeToggle from './components/shared/ThemeToggle';
 export default function App() {
   return (
     <>
+    
       <Router>
         <div className="app">
           <Navbar />
@@ -22,9 +23,7 @@ export default function App() {
               <Route path="/contributors" element={<Contributors />} />
             </Routes>
           </main>
-          <Footer />
-        </div>
-      </Router>
+          
 
       <div className="container">
         {/* Hero Section */}
@@ -53,11 +52,11 @@ export default function App() {
 
         <ThemeToggle />
 
-        {/* Footer */}
-        <footer className="footer">
-          © {new Date().getFullYear()} Open Source Kashmir
-        </footer>
+       
       </div>
+      <Footer />
+        </div>
+      </Router>
     </>
   );
 }
