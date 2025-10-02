@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation,useNavigate } from 'react-router-dom';
 import './Navbar.css';
-import { Moon, Sun } from 'lucide-react';
+
 import ThemeToggle from "./shared/ThemeToggle";
 import { useTheme } from "../context/ThemeContext";
 
@@ -18,30 +18,7 @@ const Navbar = () => {
   const isActive = (path) => {
     return location.pathname === path ? 'nav-link active' : 'nav-link';
   };
-   // Smooth scroll handler
-  const handleNavClick = (e, path, sectionId) => {
-    e.preventDefault();
-    setIsMenuOpen(false);
-
-    if (location.pathname === '/' && sectionId) {
-      // Already on home, just scroll
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    } else {
-      // Navigate first, then scroll
-      navigate(path);
-      if (sectionId) {
-        setTimeout(() => {
-          const element = document.getElementById(sectionId);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }, 100);
-      }
-    }
-  };
+  
 
   return (
     <nav className={`navbar ${isDark ? "dark" : "light"}`}>
@@ -63,7 +40,7 @@ const Navbar = () => {
           <Link to="/contributors" className={isActive('/contributors')} onClick={() => setIsMenuOpen(false)}>
             Contributors
           </Link>
-           <ThemeToggle />
+          
 
           <a 
             href="https://github.com/Open-Source-Kashmir" 
@@ -83,6 +60,7 @@ const Navbar = () => {
           >
             Discord
           </a>
+           <ThemeToggle />
         </div>
 
         <div className="nav-toggle" onClick={toggleMenu}>

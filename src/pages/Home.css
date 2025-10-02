@@ -1,6 +1,10 @@
 .home {
   padding-top: 80px; /* Account for fixed navbar */
 }
+:root {
+  --color-surface: #ffffff;
+  --color-text-muted: #4b5563;
+}
 
 .container {
   max-width: 1200px;
@@ -190,14 +194,14 @@
 
 .stat-label {
   font-size: 1.1rem;
-  color: #6b7280;
-  font-weight: 500;
+  color: var(--color-text-muted);
+font-weight: 500;
 }
 
 /* Features Section */
 .features {
   padding: 4rem 0;
-  background: #f9fafb;
+  background: var(--color-surface);
 }
 
 .section-header {

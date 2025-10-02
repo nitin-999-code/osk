@@ -50,7 +50,7 @@ export default function App() {
           </p>
         </section>
 
-        <ThemeToggle />
+       
 
        
       </div>
