@@ -1,6 +1,10 @@
 .home {
   padding-top: 80px; /* Account for fixed navbar */
 }
+:root {
+  --color-surface: #ffffff;
+  --color-text-muted: #4b5563;
+}
 
 .container {
   max-width: 1200px;
@@ -10,7 +14,7 @@
 
 /* Hero Section */
 .hero {
-  background: linear-gradient(135deg, #f9fafb 0%, #eef2ff 100%);
+  background: linear-gradient(135deg, var(--color-bg-muted) 0%, #eef2ff 100%);
   padding: 4rem 0;
   overflow: hidden;
 }
@@ -32,7 +36,7 @@
 .hero-title {
   font-size: 3.5rem;
   font-weight: 800;
-  color: #1f2937;
+  color: var(--color-text);
   line-height: 1.2;
   margin-bottom: 1.5rem;
 }
@@ -46,7 +50,7 @@
 
 .hero-description {
   font-size: 1.25rem;
-  color: #6b7280;
+  color: var(--color-text-muted);
   line-height: 1.6;
   margin-bottom: 2.5rem;
   max-width: 500px;
@@ -68,10 +72,10 @@
 
 .floating-card {
   position: absolute;
-  background: white;
+  background: var(--color-surface);
   border-radius: 1rem;
   padding: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px var(--shadow-color);
   text-align: center;
   animation: float 6s ease-in-out infinite;
 }
@@ -101,7 +105,7 @@
 
 .floating-card h3 {
   margin: 0;
-  color: #1f2937;
+  color: var(--color-text);
   font-size: 1rem;
   font-weight: 600;
 }
@@ -125,25 +129,25 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-strong));
   color: white;
   box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  background: linear-gradient(135deg, var(--color-primary-strong), var(--color-primary));
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
 }
 
 .btn-secondary {
-  background: white;
-  color: #3b82f6;
-  border: 2px solid #3b82f6;
+  background: var(--color-surface);
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
 }
 
 .btn-secondary:hover {
-  background: #3b82f6;
+  background: var(--color-primary);
   color: white;
   transform: translateY(-2px);
 }
@@ -162,7 +166,7 @@
 /* Stats Section */
 .stats {
   padding: 4rem 0;
-  background: white;
+  background: var(--color-surface);
 }
 
 .stats-grid {
@@ -184,20 +188,20 @@
 .stat-number {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #1f2937;
+  color: var(--color-text);
   margin-bottom: 0.5rem;
 }
 
 .stat-label {
   font-size: 1.1rem;
-  color: #6b7280;
-  font-weight: 500;
+  color: var(--color-text-muted);
+font-weight: 500;
 }
 
 /* Features Section */
 .features {
   padding: 4rem 0;
-  background: #f9fafb;
+  background: var(--color-surface);
 }
 
 .section-header {
@@ -208,13 +212,13 @@
 .section-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--color-text);
   margin-bottom: 1rem;
 }
 
 .section-description {
   font-size: 1.25rem;
-  color: #6b7280;
+  color: var(--color-text-muted);
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
@@ -227,11 +231,11 @@
 }
 
 .feature-card {
-  background: white;
+  background: var(--color-surface);
   padding: 2rem;
   border-radius: 1rem;
   text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px var(--shadow-color);
   transition: transform 0.3s ease;
 }
 
@@ -247,19 +251,19 @@
 .feature-title {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--color-text);
   margin-bottom: 1rem;
 }
 
 .feature-description {
-  color: #6b7280;
+  color: var(--color-text-muted);
   line-height: 1.6;
 }
 
 /* Featured Programs Section */
 .featured-programs {
   padding: 4rem 0;
-  background: white;
+  background: var(--color-surface);
 }
 
 .programs-grid {

@@ -1,11 +1,16 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation,useNavigate } from 'react-router-dom';
 import './Navbar.css';
+
+import ThemeToggle from "./shared/ThemeToggle";
+import { useTheme } from "../context/ThemeContext";
+
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-
+  const navigate = useNavigate();
+  const { isDark } = useTheme();
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -13,9 +18,10 @@ const Navbar = () => {
   const isActive = (path) => {
     return location.pathname === path ? 'nav-link active' : 'nav-link';
   };
+  
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${isDark ? "dark" : "light"}`}>
       <div className="nav-container">
         <Link to="/" className="nav-logo">
           <span className="logo-text">OSK</span>
@@ -34,6 +40,8 @@ const Navbar = () => {
           <Link to="/contributors" className={isActive('/contributors')} onClick={() => setIsMenuOpen(false)}>
             Contributors
           </Link>
+          
+
           <a 
             href="https://github.com/Open-Source-Kashmir" 
             target="_blank" 
@@ -52,6 +60,7 @@ const Navbar = () => {
           >
             Discord
           </a>
+           <ThemeToggle />
         </div>
 
         <div className="nav-toggle" onClick={toggleMenu}>

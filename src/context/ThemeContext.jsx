@@ -3,16 +3,36 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const [isDark, setIsDark] = useState(false);
+  const getInitialDarkPreference = () => {
+    const storedPreference = window.localStorage.getItem('theme:isDark');
+    if (storedPreference !== null) {
+      return storedPreference === 'true';
+    }
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  };
+
+  const [isDark, setIsDark] = useState(getInitialDarkPreference);
 
   useEffect(() => {
-    // Apply dark class to body element
     if (isDark) {
       document.body.classList.add('dark');
     } else {
       document.body.classList.remove('dark');
     }
+    window.localStorage.setItem('theme:isDark', String(isDark));
   }, [isDark]);
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const handler = (event) => {
+      const storedPreference = window.localStorage.getItem('theme:isDark');
+      if (storedPreference === null) {
+        setIsDark(event.matches);
+      }
+    };
+    media.addEventListener('change', handler);
+    return () => media.removeEventListener('change', handler);
+  }, []);
 
   const toggleTheme = () => setIsDark(prev => !prev);
 
