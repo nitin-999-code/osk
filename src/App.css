@@ -113,7 +113,6 @@ img {
   animation: spin 1s linear infinite;
 }
 
-
 /* Fade in animation */
 @keyframes fadeIn {
   from {
@@ -124,13 +123,6 @@ img {
     opacity: 1;
     transform: translateY(0);
   }
-
-.about h2 {
-  font-size: 1.8rem;
-  /* font-weight: bold; */
-  color: #1f2937;
-  margin-bottom: 0.75rem;
-
 }
 
 .fade-in {
@@ -148,6 +140,7 @@ img {
     scroll-behavior: auto !important;
   }
 }
+
 body {
   margin: 0;
   font-family: 'Segoe UI', Arial, sans-serif;
