@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ProgramCard from '../components/ProgramCard';
 import './Programs.css';
-import gsocLogo from '../assets/Gsoc.png';
+import gsocLogo from '../assets/GSoc.png';
 import lfLogo from '../assets/linux.png';
 import outreachyLogo from '../assets/outreachy.png';
 import mlhLogo from '../assets/mlh.png';

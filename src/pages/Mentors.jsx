@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import './Mentors.css';
 
 const Mentors = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedMentor, setSelectedMentor] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortBy, setSortBy] = useState('relevance'); // relevance | experience | mentees | name
+  const [onlineOnly, setOnlineOnly] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(6);
 
   const mentors = [
     {
@@ -20,7 +24,9 @@ const Mentors = () => {
       location: "Srinagar, Kashmir",
       languages: ["English", "Urdu", "Kashmiri"],
       availability: "Weekends",
-      category: "engineering"
+      category: "engineering",
+      online: true,
+      socials: { twitter: "https://twitter.com/", github: "https://github.com/" }
     },
     {
       id: 2,
@@ -36,7 +42,9 @@ const Mentors = () => {
       location: "Jammu, Kashmir",
       languages: ["English", "Hindi", "Urdu"],
       availability: "Evenings",
-      category: "devops"
+      category: "devops",
+      online: false,
+      socials: { linkedin: "https://linkedin.com/" }
     },
     {
       id: 3,
@@ -52,7 +60,8 @@ const Mentors = () => {
       location: "Bangalore, India",
       languages: ["English", "Hindi"],
       availability: "Flexible",
-      category: "design"
+      category: "design",
+      online: true
     },
     {
       id: 4,
@@ -68,7 +77,8 @@ const Mentors = () => {
       location: "Anantnag, Kashmir",
       languages: ["English", "Urdu", "Kashmiri"],
       availability: "Weekends",
-      category: "data"
+      category: "data",
+      online: true
     },
     {
       id: 5,
@@ -84,7 +94,8 @@ const Mentors = () => {
       location: "Srinagar, Kashmir",
       languages: ["English", "Urdu", "Kashmiri", "Arabic"],
       availability: "Flexible",
-      category: "opensource"
+      category: "opensource",
+      online: false
     },
     {
       id: 6,
@@ -100,7 +111,8 @@ const Mentors = () => {
       location: "Delhi, India",
       languages: ["English", "Hindi"],
       availability: "Evenings",
-      category: "mobile"
+      category: "mobile",
+      online: true
     }
   ];
 
@@ -114,9 +126,50 @@ const Mentors = () => {
     { value: 'mobile', label: 'Mobile', icon: '📱' }
   ];
 
-  const filteredMentors = selectedCategory === 'all' 
-    ? mentors 
-    : mentors.filter(mentor => mentor.category === selectedCategory);
+  const normalizedExperience = (exp) => {
+    if (!exp) return 0;
+    const match = /([0-9]+)\+?/i.exec(exp);
+    return match ? parseInt(match[1], 10) : 0;
+  };
+
+  const filteredMentors = useMemo(() => {
+    let list = mentors;
+
+    // Category filter
+    if (selectedCategory !== 'all') {
+      list = list.filter(m => m.category === selectedCategory);
+    }
+
+    // Online only
+    if (onlineOnly) {
+      list = list.filter(m => m.online);
+    }
+
+    // Search by name, title, company, expertise, location
+    if (searchTerm.trim()) {
+      const q = searchTerm.toLowerCase();
+      list = list.filter(m => (
+        m.name.toLowerCase().includes(q) ||
+        m.title.toLowerCase().includes(q) ||
+        m.company.toLowerCase().includes(q) ||
+        m.location.toLowerCase().includes(q) ||
+        (m.expertise || []).some(s => s.toLowerCase().includes(q))
+      ));
+    }
+
+    // Sort
+    if (sortBy === 'experience') {
+      list = [...list].sort((a, b) => normalizedExperience(b.experience) - normalizedExperience(a.experience));
+    } else if (sortBy === 'mentees') {
+      list = [...list].sort((a, b) => (b.mentees || 0) - (a.mentees || 0));
+    } else if (sortBy === 'name') {
+      list = [...list].sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    return list;
+  }, [mentors, selectedCategory, onlineOnly, searchTerm, sortBy]);
+
+  const visibleMentors = useMemo(() => filteredMentors.slice(0, visibleCount), [filteredMentors, visibleCount]);
 
   const openMentorModal = (mentor) => {
     setSelectedMentor(mentor);
@@ -169,12 +222,44 @@ const Mentors = () => {
             </h2>
           </div>
           
+          {/* Controls */}
+          <div className="mentors-controls">
+            <div className="search-container">
+              <input
+                type="text"
+                className="search-input"
+                placeholder="Search mentors, skills, company..."
+                value={searchTerm}
+                aria-label="Search mentors, skills, company"
+                onChange={(e) => { setSearchTerm(e.target.value); setVisibleCount(6); }}
+              />
+              <svg className="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+            </div>
+            <div className="controls-right">
+              <label className="toggle">
+                <input type="checkbox" checked={onlineOnly} onChange={(e) => { setOnlineOnly(e.target.checked); setVisibleCount(6); }} />
+                <span className="toggle-label">Online only</span>
+              </label>
+              <select className="sort-select" value={sortBy} onChange={(e) => setSortBy(e.target.value)}
+                aria-label="Sort mentors"
+              >
+                <option value="relevance">Sort: Relevance</option>
+                <option value="experience">Sort: Experience</option>
+                <option value="mentees">Sort: Mentees</option>
+                <option value="name">Sort: Name</option>
+              </select>
+            </div>
+          </div>
+          
           <div className="mentors-grid">
-            {filteredMentors.map((mentor) => (
+            {visibleMentors.map((mentor) => (
               <div key={mentor.id} className="mentor-card">
                 <div className="mentor-avatar">
                   <img src={mentor.avatar} alt={mentor.name} />
-                  <div className="mentor-status online"></div>
+                  {mentor.online && <div className="mentor-status online"></div>}
                 </div>
                 
                 <div className="mentor-info">
@@ -214,6 +299,14 @@ const Mentors = () => {
               </div>
             ))}
           </div>
+
+          {visibleMentors.length < filteredMentors.length && (
+            <div className="load-more-container">
+              <button className="btn btn-secondary load-more" onClick={() => setVisibleCount((c) => c + 6)}>
+                Load more
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
