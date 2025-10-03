@@ -1,6 +1,15 @@
 import { useState } from 'react';
 import ProgramCard from '../components/ProgramCard';
 import './Programs.css';
+import gsocLogo from '../assets/Gsoc.png';
+import lfLogo from '../assets/linux.png';
+import outreachyLogo from '../assets/outreachy.png';
+import mlhLogo from '../assets/mlh.png';
+import seasonofDocsLogo from '../assets/docs.png';
+import githubLogo from '../assets/github.png';
+import codeforgoodLogo from '../assets/jp.png';
+import fossasiaLogo from '../assets/fossasia.png';
+
 
 const Programs = () => {
   const [filter, setFilter] = useState('all');
@@ -17,7 +26,8 @@ const Programs = () => {
       skills: ["Programming", "Open Source", "Git", "Documentation"],
       link: "https://summerofcode.withgoogle.com/",
       featured: true,
-      category: "internship"
+      category: "internship",
+      logo: gsocLogo
     },
     {
       title: "LFX Mentorship",
@@ -28,7 +38,8 @@ const Programs = () => {
       applicationDeadline: "Rolling",
       skills: ["Linux", "Cloud", "DevOps", "Kubernetes"],
       link: "https://mentorship.lfx.linuxfoundation.org/",
-      category: "mentorship"
+      category: "mentorship",
+      logo: lfLogo
     },
     {
       title: "Outreachy",
@@ -39,7 +50,8 @@ const Programs = () => {
       applicationDeadline: "February & August",
       skills: ["Programming", "Documentation", "UX", "Translation"],
       link: "https://www.outreachy.org/",
-      category: "internship"
+      category: "internship",
+      logo: outreachyLogo
     },
     {
       title: "MLH Fellowship",
@@ -50,7 +62,8 @@ const Programs = () => {
       applicationDeadline: "Rolling",
       skills: ["Web Development", "Mobile Apps", "DevOps", "Data Science"],
       link: "https://fellowship.mlh.io/",
-      category: "fellowship"
+      category: "fellowship",
+      logo: mlhLogo
     },
     {
       title: "Season of Docs",
@@ -61,7 +74,8 @@ const Programs = () => {
       applicationDeadline: "April 2024",
       skills: ["Technical Writing", "Documentation", "Communication"],
       link: "https://developers.google.com/season-of-docs",
-      category: "documentation"
+      category: "documentation",
+      logo: seasonofDocsLogo
     },
     {
       title: "GitHub Campus Experts",
@@ -72,7 +86,8 @@ const Programs = () => {
       applicationDeadline: "Rolling",
       skills: ["Community Building", "Leadership", "Git", "Public Speaking"],
       link: "https://education.github.com/experts",
-      category: "community"
+      category: "community",
+      logo: githubLogo
     },
     {
       title: "Code for Good",
@@ -83,7 +98,9 @@ const Programs = () => {
       applicationDeadline: "September",
       skills: ["Full-Stack Development", "Problem Solving", "Teamwork"],
       link: "https://www.jpmorgan.com/technology/code-for-good",
-      category: "hackathon"
+      category: "hackathon",
+      logo: codeforgoodLogo
+
     },
     {
       title: "FOSSASIA Codeheat",
@@ -94,7 +111,8 @@ const Programs = () => {
       applicationDeadline: "October",
       skills: ["JavaScript", "Python", "Android", "Web Development"],
       link: "https://codeheat.org/",
-      category: "contest"
+      category: "contest",
+      logo: fossasiaLogo
     }
   ];
 
