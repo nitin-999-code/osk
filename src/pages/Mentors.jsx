@@ -230,7 +230,7 @@ const Mentors = () => {
                 className="search-input"
                 placeholder="Search mentors, skills, company..."
                 value={searchTerm}
-                area-label="Search mentors, skill, company"
+                aria-label="Search mentors, skills, company"
                 onChange={(e) => { setSearchTerm(e.target.value); setVisibleCount(6); }}
               />
               <svg className="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -244,7 +244,7 @@ const Mentors = () => {
                 <span className="toggle-label">Online only</span>
               </label>
               <select className="sort-select" value={sortBy} onChange={(e) => setSortBy(e.target.value)}
-                area-label="Sort mentors"
+                aria-label="Sort mentors"
               >
                 <option value="relevance">Sort: Relevance</option>
                 <option value="experience">Sort: Experience</option>
