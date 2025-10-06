@@ -100,3 +100,7 @@ Here are some ways you can contribute:
 - Instagram: coming soon
 
 Let’s build the open source community of Kashmir together 🚀
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE.md) file for details.

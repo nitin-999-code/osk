@@ -110,21 +110,29 @@ const Home = () => {
           </div>
         </div>
       </section>
-
+      <br></br>
+      <br></br>
+      <br></br>
       {/* Stats Section */}
-      <section className="stats">
-        <div className="container">
-          <div className="stats-grid">
-            {stats.map((stat, index) => (
-              <div key={index} className="stat-item">
-                <div className="stat-icon">{stat.icon}</div>
-                <div className="stat-number">{stat.number}</div>
-                <div className="stat-label">{stat.label}</div>
-              </div>
-            ))}
-          </div>
+      {/* Stats Section */}
+      <section className="bg-[#0b1220] py-12">
+<section className="bg-[#0b1220] py-12">
+  <div className="max-w-6xl mx-auto px-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      {stats.map((stat) => (
+        <div
+          key={stat.label}
+          className="flex flex-col items-center justify-center bg-[#10172a] p-6 rounded-2xl shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300"
+        >
+          <div className="text-4xl">{stat.icon}</div>
+          <div className="text-3xl font-extrabold text-white mt-2">{stat.number}</div>
+          <p className="text-slate-400 mt-1">{stat.label}</p>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* Features Section */}
       <section className="features">
