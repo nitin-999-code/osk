@@ -110,9 +110,10 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <br></br>
-      <br></br>
-      <br></br>
+      {/* Stats Section */}
+      <section className="bg-[#0b1220] py-12 mt-12">
+        {/* ...stats content */}
+      </section>
       {/* Stats Section */}
       {/* Stats Section */}
       <section className="bg-[#0b1220] py-12">
