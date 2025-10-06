@@ -6,7 +6,12 @@
 }
 
 .main-content {
-  flex: 1;
+  padding-top: 6rem !important; /* 6rem = 96px — adjust if navbar height is different */
+}
+
+/* If there is a hero wrapper that is first child, you can also push it down */
+.main-content > *:first-child {
+  margin-top: 0 !important;
 }
 
 /* Global Reset and Base Styles */
