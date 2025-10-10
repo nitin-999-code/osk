@@ -7,19 +7,32 @@ export default function BackToTop() {
   const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
-    setReduceMotion(
-      typeof window !== "undefined" &&
-        window.matchMedia &&
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    );
+    // reactive prefers-reduced-motion (optional but recommended)
+    if (typeof window !== "undefined" && window.matchMedia) {
+      const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const onChange = (e) => setReduceMotion(!!e.matches);
+      setReduceMotion(!!mq.matches);
+      // add listener (support modern and fallback APIs)
+      if (mq.addEventListener) mq.addEventListener("change", onChange);
+      else if (mq.addListener) mq.addListener(onChange);
+      return () => {
+        if (mq.removeEventListener) mq.removeEventListener("change", onChange);
+        else if (mq.removeListener) mq.removeListener(onChange);
+      };
+    }
+    return undefined;
+  }, []);
 
+  useEffect(() => {
     const onScroll = () => {
-      const y = window.pageYOffset || document.documentElement.scrollTop || 0;
+      // use modern API (window.scrollY) but fallback to documentElement.scrollTop
+      const y = typeof window !== "undefined" ? (window.scrollY || document.documentElement.scrollTop || 0) : 0;
       setVisible(y > 300);
     };
 
+    // single listener on window (sufficient and efficient)
     window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    onScroll(); // initialize
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -31,7 +44,6 @@ export default function BackToTop() {
   const size = 56;
   const zIndex = 1000;
 
-  // static/base styles (memoized)
   const STATIC_BASE_STYLE = useMemo(
     () => ({
       position: "fixed",
@@ -48,16 +60,14 @@ export default function BackToTop() {
       placeItems: "center",
       fontSize: 20,
       lineHeight: 1,
-      WebkitTapHighlightColor: "transparent"
+      WebkitTapHighlightColor: "transparent",
     }),
     [size]
   );
 
-  // dynamic style memoized to avoid recreating inline objects every render
   const baseStyle = useMemo(() => {
     const visibleTransform = visible ? (hover ? "translateY(0) scale(1.06)" : "translateY(0) scale(1)") : "translateY(8px) scale(0.96)";
     const transition = reduceMotion ? "none" : "opacity .22s ease, transform .18s cubic-bezier(.2,.9,.2,1)";
-    // stronger focus indicator: high-contrast outline + subtle shadow for separation
     const focusOutline = focused ? "3px solid rgba(255,255,255,0.95)" : undefined;
     const focusShadow = focused ? "0 4px 18px rgba(11,95,255,0.18), 0 2px 6px rgba(2,6,23,0.12)" : "0 8px 30px rgba(11,95,255,0.24), 0 2px 6px rgba(2,6,23,0.12)";
 
@@ -70,7 +80,7 @@ export default function BackToTop() {
       pointerEvents: visible ? "auto" : "none",
       outline: focusOutline,
       outlineOffset: focused ? "3px" : undefined,
-      boxShadow: focusShadow
+      boxShadow: focusShadow,
     };
   }, [STATIC_BASE_STYLE, visible, hover, focused, reduceMotion, zIndex]);
 
@@ -90,7 +100,7 @@ export default function BackToTop() {
       boxShadow: "0 6px 18px rgba(2,6,23,0.28)",
       zIndex: zIndex - 1,
       pointerEvents: "none",
-      whiteSpace: "nowrap"
+      whiteSpace: "nowrap",
     }),
     [hover, reduceMotion, size, zIndex]
   );
@@ -118,15 +128,7 @@ export default function BackToTop() {
         }}
         style={baseStyle}
       >
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-          focusable="false"
-        >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
           <path d="M12 5v14" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           <path d="M5 12l7-7 7 7" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
