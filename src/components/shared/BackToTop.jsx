@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 export default function BackToTop() {
   const [visible, setVisible] = useState(false);
   const [hover, setHover] = useState(false);
+  const [focused, setFocused] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
@@ -12,35 +13,32 @@ export default function BackToTop() {
         window.matchMedia("(prefers-reduced-motion: reduce)").matches
     );
 
-    const scEl = document.scrollingElement || document.documentElement;
-    const getScrollTop = () => (scEl && scEl.scrollTop) || window.scrollY || 0;
-
-    const onScroll = () => setVisible(getScrollTop() > 300);
-
-    if (scEl && scEl.addEventListener) scEl.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-
-    return () => {
-      if (scEl && scEl.removeEventListener) scEl.removeEventListener("scroll", onScroll);
-      window.removeEventListener("scroll", onScroll);
+    const onScroll = () => {
+      const y = window.pageYOffset || document.documentElement.scrollTop || 0;
+      setVisible(y > 300);
     };
+
+    // single listener on window
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // init
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const scrollToTop = () => {
-    const scEl = document.scrollingElement || document.documentElement;
-    if (scEl && scEl.scrollTo) scEl.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
-    else window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    if (reduceMotion) window.scrollTo(0, 0);
+    else window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const size = 56;
+  const zIndex = 1000;
+
   const baseStyle = {
     position: "fixed",
     right: 22,
     bottom: 28,
     width: size,
     height: size,
-    borderRadius: size / 2,
+    borderRadius: "50%",
     border: "none",
     background: "linear-gradient(180deg,#37a6ff 0%, #0b5fff 100%)",
     color: "#fff",
@@ -53,14 +51,17 @@ export default function BackToTop() {
     transform: visible ? (hover ? "translateY(0) scale(1.06)" : "translateY(0) scale(1)") : "translateY(8px) scale(0.96)",
     opacity: visible ? 1 : 0,
     transition: reduceMotion ? "none" : "opacity .22s ease, transform .18s cubic-bezier(.2,.9,.2,1)",
-    zIndex: 99999,
+    zIndex,
     pointerEvents: visible ? "auto" : "none",
-    outline: "none"
+    // keep accessible focus indicator controlled by state
+    outline: focused ? "2px solid rgba(255,255,255,0.6)" : undefined,
+    outlineOffset: focused ? "3px" : undefined,
+    WebkitTapHighlightColor: "transparent"
   };
 
   const tooltipStyle = {
     position: "fixed",
-    right: 22 + (size - 48) / 2, // roughly align center
+    right: 22 + (size - 48) / 2,
     bottom: 28 + size + 10,
     transform: hover ? "translateY(0)" : "translateY(6px)",
     opacity: hover ? 1 : 0,
@@ -71,14 +72,13 @@ export default function BackToTop() {
     borderRadius: 8,
     fontSize: 13,
     boxShadow: "0 6px 18px rgba(2,6,23,0.28)",
-    zIndex: 99998,
+    zIndex: zIndex - 1,
     pointerEvents: "none",
     whiteSpace: "nowrap"
   };
 
   return (
     <>
-      {/* tooltip */}
       <div style={tooltipStyle} aria-hidden={!hover}>
         Back to top
       </div>
@@ -86,15 +86,20 @@ export default function BackToTop() {
       <button
         type="button"
         aria-label="Back to top"
-        aria-hidden={!visible}
+        tabIndex={visible ? 0 : -1}         // remove from tab order when hidden
         onClick={scrollToTop}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        onFocus={() => setHover(true)}
-        onBlur={() => setHover(false)}
+        onFocus={() => {
+          setFocused(true);
+          setHover(true);
+        }}
+        onBlur={() => {
+          setFocused(false);
+          setHover(false);
+        }}
         style={baseStyle}
       >
-        {/* SVG arrow (bigger, crisp) */}
         <svg
           width="20"
           height="20"
@@ -102,6 +107,7 @@ export default function BackToTop() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
+          focusable="false"
         >
           <path d="M12 5v14" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           <path d="M5 12l7-7 7 7" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
