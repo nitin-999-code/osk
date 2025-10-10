@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -6,6 +7,7 @@ import Programs from "./pages/Programs";
 import Mentors from "./pages/Mentors";
 import Contributors from "./pages/Contributors";
 import CommunityPage from "./pages/CommunityPage";
+import BackToTop from "./components/shared/BackToTop";
 
 export default function App() {
   return (
@@ -25,6 +27,9 @@ export default function App() {
         </main>
 
         <Footer />
+
+        {/* Back-to-top button */}
+        <BackToTop />
       </div>
     </Router>
   );
