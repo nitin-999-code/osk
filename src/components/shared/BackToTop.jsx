@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 export default function BackToTop() {
   const [visible, setVisible] = useState(false);
@@ -18,9 +18,8 @@ export default function BackToTop() {
       setVisible(y > 300);
     };
 
-    // single listener on window
     window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll(); // init
+    onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -32,50 +31,69 @@ export default function BackToTop() {
   const size = 56;
   const zIndex = 1000;
 
-  const baseStyle = {
-    position: "fixed",
-    right: 22,
-    bottom: 28,
-    width: size,
-    height: size,
-    borderRadius: "50%",
-    border: "none",
-    background: "linear-gradient(180deg,#37a6ff 0%, #0b5fff 100%)",
-    color: "#fff",
-    boxShadow: "0 8px 30px rgba(11,95,255,0.24), 0 2px 6px rgba(2,6,23,0.12)",
-    cursor: "pointer",
-    display: "grid",
-    placeItems: "center",
-    fontSize: 20,
-    lineHeight: 1,
-    transform: visible ? (hover ? "translateY(0) scale(1.06)" : "translateY(0) scale(1)") : "translateY(8px) scale(0.96)",
-    opacity: visible ? 1 : 0,
-    transition: reduceMotion ? "none" : "opacity .22s ease, transform .18s cubic-bezier(.2,.9,.2,1)",
-    zIndex,
-    pointerEvents: visible ? "auto" : "none",
-    // keep accessible focus indicator controlled by state
-    outline: focused ? "2px solid rgba(255,255,255,0.6)" : undefined,
-    outlineOffset: focused ? "3px" : undefined,
-    WebkitTapHighlightColor: "transparent"
-  };
+  // static/base styles (memoized)
+  const STATIC_BASE_STYLE = useMemo(
+    () => ({
+      position: "fixed",
+      right: 22,
+      bottom: 28,
+      width: size,
+      height: size,
+      borderRadius: "50%",
+      border: "none",
+      background: "linear-gradient(180deg,#37a6ff 0%, #0b5fff 100%)",
+      color: "#fff",
+      cursor: "pointer",
+      display: "grid",
+      placeItems: "center",
+      fontSize: 20,
+      lineHeight: 1,
+      WebkitTapHighlightColor: "transparent"
+    }),
+    [size]
+  );
 
-  const tooltipStyle = {
-    position: "fixed",
-    right: 22 + (size - 48) / 2,
-    bottom: 28 + size + 10,
-    transform: hover ? "translateY(0)" : "translateY(6px)",
-    opacity: hover ? 1 : 0,
-    transition: reduceMotion ? "none" : "opacity .18s ease, transform .18s ease",
-    background: "rgba(15,18,25,0.9)",
-    color: "#fff",
-    padding: "6px 10px",
-    borderRadius: 8,
-    fontSize: 13,
-    boxShadow: "0 6px 18px rgba(2,6,23,0.28)",
-    zIndex: zIndex - 1,
-    pointerEvents: "none",
-    whiteSpace: "nowrap"
-  };
+  // dynamic style memoized to avoid recreating inline objects every render
+  const baseStyle = useMemo(() => {
+    const visibleTransform = visible ? (hover ? "translateY(0) scale(1.06)" : "translateY(0) scale(1)") : "translateY(8px) scale(0.96)";
+    const transition = reduceMotion ? "none" : "opacity .22s ease, transform .18s cubic-bezier(.2,.9,.2,1)";
+    // stronger focus indicator: high-contrast outline + subtle shadow for separation
+    const focusOutline = focused ? "3px solid rgba(255,255,255,0.95)" : undefined;
+    const focusShadow = focused ? "0 4px 18px rgba(11,95,255,0.18), 0 2px 6px rgba(2,6,23,0.12)" : "0 8px 30px rgba(11,95,255,0.24), 0 2px 6px rgba(2,6,23,0.12)";
+
+    return {
+      ...STATIC_BASE_STYLE,
+      transform: visibleTransform,
+      opacity: visible ? 1 : 0,
+      transition,
+      zIndex,
+      pointerEvents: visible ? "auto" : "none",
+      outline: focusOutline,
+      outlineOffset: focused ? "3px" : undefined,
+      boxShadow: focusShadow
+    };
+  }, [STATIC_BASE_STYLE, visible, hover, focused, reduceMotion, zIndex]);
+
+  const tooltipStyle = useMemo(
+    () => ({
+      position: "fixed",
+      right: 22 + (size - 48) / 2,
+      bottom: 28 + size + 10,
+      transform: hover ? "translateY(0)" : "translateY(6px)",
+      opacity: hover ? 1 : 0,
+      transition: reduceMotion ? "none" : "opacity .18s ease, transform .18s ease",
+      background: "rgba(15,18,25,0.9)",
+      color: "#fff",
+      padding: "6px 10px",
+      borderRadius: 8,
+      fontSize: 13,
+      boxShadow: "0 6px 18px rgba(2,6,23,0.28)",
+      zIndex: zIndex - 1,
+      pointerEvents: "none",
+      whiteSpace: "nowrap"
+    }),
+    [hover, reduceMotion, size, zIndex]
+  );
 
   return (
     <>
@@ -86,7 +104,7 @@ export default function BackToTop() {
       <button
         type="button"
         aria-label="Back to top"
-        tabIndex={visible ? 0 : -1}         // remove from tab order when hidden
+        tabIndex={visible ? 0 : -1}
         onClick={scrollToTop}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
