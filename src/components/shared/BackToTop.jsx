@@ -29,18 +29,30 @@ export default function BackToTop() {
   //============================================================
 
   //============================================================
-  // Handle button visibility based on scroll position
-  useEffect(() => {
-    if (!lenis) return;
+useEffect(() => {
+  // --- Fallback
+  const onScroll = () => {
+    const y = typeof window !== "undefined" ? (window.scrollY || document.documentElement.scrollTop || 0) : 0;
+    setVisible(y > 300);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll(); // initialize
 
-    //  Use Lenis's internal scroll event for better accuracy
-    const handleScroll = ({ scroll }) => {
+  let handleLenis;
+  if (lenis) {
+    handleLenis = ({ scroll }) => {
       setVisible(scroll > 300);
     };
+    lenis.on("scroll", handleLenis);
+  }
 
-    lenis.on("scroll", handleScroll);
-    return () => lenis.off("scroll", handleScroll);
-  }, [lenis]);
+  // Cleanup
+  return () => {
+    window.removeEventListener("scroll", onScroll);
+    if (lenis && handleLenis) lenis.off("scroll", handleLenis);
+  };
+}, [lenis]);
+
   //============================================================
 
   //============================================================
