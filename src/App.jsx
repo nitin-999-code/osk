@@ -22,7 +22,7 @@ export default function App() {
           duration: 0.8, // scroll duration (smooth speed)
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // smooth easing
           smooth: true,
-          syncTouch: false, // disable mobile smooth scroll for performance
+          syncTouch: false, // disable touch event synchronization
         }}
       >
         <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-100 to-indigo-50 dark:from-gray-900 dark:to-gray-800">
