@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ReactLenis } from "lenis/react"; // ✅ Official Lenis React integration
+import { ReactLenis } from "lenis/react"; 
 import "lenis/dist/lenis.css";
 
 import Navbar from "./components/Navbar";
