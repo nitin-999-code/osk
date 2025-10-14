@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useLenis } from "lenis/react"; //  Import Lenis hook
 
 export default function BackToTop() {
   const [visible, setVisible] = useState(false);
@@ -6,40 +7,55 @@ export default function BackToTop() {
   const [focused, setFocused] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
 
+  const lenis = useLenis(); //  Get Lenis instance
+
+  //============================================================
+  // Detect prefers-reduced-motion
   useEffect(() => {
-    // reactive prefers-reduced-motion (optional but recommended)
     if (typeof window !== "undefined" && window.matchMedia) {
       const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
       const onChange = (e) => setReduceMotion(!!e.matches);
       setReduceMotion(!!mq.matches);
-      // add listener (support modern and fallback APIs)
+
       if (mq.addEventListener) mq.addEventListener("change", onChange);
       else if (mq.addListener) mq.addListener(onChange);
+
       return () => {
         if (mq.removeEventListener) mq.removeEventListener("change", onChange);
         else if (mq.removeListener) mq.removeListener(onChange);
       };
     }
-    return undefined;
   }, []);
+  //============================================================
 
+  //============================================================
+  // Handle button visibility based on scroll position
   useEffect(() => {
-    const onScroll = () => {
-      // use modern API (window.scrollY) but fallback to documentElement.scrollTop
-      const y = typeof window !== "undefined" ? (window.scrollY || document.documentElement.scrollTop || 0) : 0;
-      setVisible(y > 300);
+    if (!lenis) return;
+
+    //  Use Lenis's internal scroll event for better accuracy
+    const handleScroll = ({ scroll }) => {
+      setVisible(scroll > 300);
     };
 
-    // single listener on window (sufficient and efficient)
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll(); // initialize
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    lenis.on("scroll", handleScroll);
+    return () => lenis.off("scroll", handleScroll);
+  }, [lenis]);
+  //============================================================
 
+  //============================================================
+  // Scroll-to-top handler (Lenis + fallback)
   const scrollToTop = () => {
-    if (reduceMotion) window.scrollTo(0, 0);
-    else window.scrollTo({ top: 0, behavior: "smooth" });
+    if (reduceMotion && lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    } else if (lenis) {
+      lenis.scrollTo(0, { duration: 0.8 });
+    } else {
+      // Fallback for when Lenis isn't ready or disabled
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    }
   };
+  //============================================================
 
   const size = 56;
   const zIndex = 1000;
@@ -66,10 +82,18 @@ export default function BackToTop() {
   );
 
   const baseStyle = useMemo(() => {
-    const visibleTransform = visible ? (hover ? "translateY(0) scale(1.06)" : "translateY(0) scale(1)") : "translateY(8px) scale(0.96)";
-    const transition = reduceMotion ? "none" : "opacity .22s ease, transform .18s cubic-bezier(.2,.9,.2,1)";
+    const visibleTransform = visible
+      ? hover
+        ? "translateY(0) scale(1.06)"
+        : "translateY(0) scale(1)"
+      : "translateY(8px) scale(0.96)";
+    const transition = reduceMotion
+      ? "none"
+      : "opacity .22s ease, transform .18s cubic-bezier(.2,.9,.2,1)";
     const focusOutline = focused ? "3px solid rgba(255,255,255,0.95)" : undefined;
-    const focusShadow = focused ? "0 4px 18px rgba(11,95,255,0.18), 0 2px 6px rgba(2,6,23,0.12)" : "0 8px 30px rgba(11,95,255,0.24), 0 2px 6px rgba(2,6,23,0.12)";
+    const focusShadow = focused
+      ? "0 4px 18px rgba(11,95,255,0.18), 0 2px 6px rgba(2,6,23,0.12)"
+      : "0 8px 30px rgba(11,95,255,0.24), 0 2px 6px rgba(2,6,23,0.12)";
 
     return {
       ...STATIC_BASE_STYLE,
@@ -128,9 +152,29 @@ export default function BackToTop() {
         }}
         style={baseStyle}
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-          <path d="M12 5v14" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M5 12l7-7 7 7" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path
+            d="M12 5v14"
+            stroke="white"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M5 12l7-7 7 7"
+            stroke="white"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </button>
     </>
