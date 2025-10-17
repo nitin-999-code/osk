@@ -55,7 +55,7 @@ const Home = () => {
     {
       title: "Career Growth",
       description: "Gain valuable experience and skills that boost your career prospects in the tech industry.",
-      icon: <TrendingUp color="green" size={48} />
+      icon: <TrendingUp color="#43ba7b" size={40} />
     }
   ];
 
