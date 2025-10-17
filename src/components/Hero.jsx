@@ -1,4 +1,5 @@
 import React from 'react';
+import { Lightbulb, BookOpen, Handshake } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -30,17 +31,23 @@ export default function Hero() {
         <div className="flex-0 basis-[360px] flex justify-center">
           <div className="flex flex-wrap justify-center gap-4" role="list" aria-label="Highlights">
             <div className="w-30 h-30 bg-gray-900/95 text-white rounded-2xl flex flex-col items-center justify-center shadow-xl shadow-gray-900/80 text-center p-2 transition-all duration-150 hover:-translate-y-2 hover:shadow-2xl hover:shadow-gray-900/90" role="listitem">
-              <div className="text-4xl mb-1" aria-hidden="true">🚀</div>
+              <div className="text-4xl mb-1" aria-hidden="true">
+                <Lightbulb color="#0ea5e9" size={40} />
+              </div>
               <h3 className="text-base m-0 font-bold">Innovation</h3>
             </div>
 
             <div className="w-30 h-30 bg-gray-900/95 text-white rounded-2xl flex flex-col items-center justify-center shadow-xl shadow-gray-900/80 text-center p-2 transition-all duration-150 hover:-translate-y-2 hover:shadow-2xl hover:shadow-gray-900/90" role="listitem">
-              <div className="text-4xl mb-1" aria-hidden="true">💡</div>
+              <div className="text-4xl mb-1" aria-hidden="true">
+                <BookOpen color="#0ea5e9" size={40} />
+              </div>
               <h3 className="text-base m-0 font-bold">Learning</h3>
             </div>
 
             <div className="w-30 h-30 bg-gray-900/95 text-white rounded-2xl flex flex-col items-center justify-center shadow-xl shadow-gray-900/80 text-center p-2 transition-all duration-150 hover:-translate-y-2 hover:shadow-2xl hover:shadow-gray-900/90" role="listitem">
-              <div className="text-4xl mb-1" aria-hidden="true">🤝</div>
+              <div className="text-4xl mb-1" aria-hidden="true">
+                <Handshake color="#0ea5e9" size={40} />
+              </div>
               <h3 className="text-base m-0 font-bold">Collaboration</h3>
             </div>
           </div>
