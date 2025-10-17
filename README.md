@@ -103,8 +103,8 @@ Here are some ways you can contribute:
 Let’s build the open source community of Kashmir together 🚀
 
 ## Admin 
-Athar - https://github.com/oathar <br>
-Ayaan - https://github.com/MAT1018
+[Athar Ramzan](https://github.com/oathar) <br>
+[Ayaan Taimur](https://github.com/MAT1018)
 
 ## License
 
