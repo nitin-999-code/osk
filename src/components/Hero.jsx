@@ -15,7 +15,7 @@ export default function Hero() {
           </p>
 
           <div className="flex gap-3 flex-wrap mt-2.5" role="group" aria-label="Call to action">
-            <a className="inline-flex items-center justify-center py-2.5 px-5 rounded-xl no-underline font-semibold text-sm min-h-[44px] transition-all duration-150 bg-gradient-to-r from-blue-600 to-blue-400 text-white border-none shadow-lg shadow-blue-600/30 hover:-translate-y-1" href="#programs">Explore Programs</a>
+            <a className="inline-flex items-center justify-center py-2.5 px-5 rounded-xl no-underline font-semibold text-sm min-h-[44px] transition-all duration-150 bg-gradient-to-r from-blue-600 to-blue-400 text-white border-none shadow-lg shadow-blue-600/30 hover:-translate-y-1" href="programs">Explore Programs</a>
             <a
               className="inline-flex items-center justify-center py-2.5 px-5 rounded-xl no-underline font-semibold text-sm min-h-[44px] transition-all duration-150 bg-white/5 text-white border-2 border-white/20 hover:-translate-y-1"
               href="https://github.com/Open-Source-Kashmir"
