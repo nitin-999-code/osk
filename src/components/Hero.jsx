@@ -24,7 +24,7 @@ export default function Hero() {
             >
               Join GitHub
             </a>
-            <a className="inline-flex items-center justify-center py-2.5 px-5 rounded-xl no-underline font-semibold text-sm min-h-[44px] transition-all duration-150 bg-white/5 text-white border-2 border-white/20 hover:-translate-y-1" href="https://discord.gg/hgnUsqAmMT">Join Discord</a>
+            <a className="inline-flex items-center justify-center py-2.5 px-5 rounded-xl no-underline font-semibold text-sm min-h-[44px] transition-all duration-150 bg-white/5 text-white border-2 border-white/20 hover:-translate-y-1" href="https://discord.gg/hgnUsqAmMT" target="_blank" rel="noopener noreferrer" >Join Discord</a>
           </div>
         </div>
 
