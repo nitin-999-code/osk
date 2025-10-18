@@ -1,5 +1,7 @@
-// ...existing code...
 import React from "react";
+import ContributorCard from "../components/ContributorCard";
+import contributors from "../data/contributors.json";
+
 
 export default function CommunityPage() {
   const highlights = [
@@ -170,6 +172,28 @@ export default function CommunityPage() {
             ))}
           </ul>
         </aside>
+      </section>
+
+      {/* Contributors Section */}
+      <section className="mt-12 max-w-6xl mx-auto">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-semibold text-white">Our Contributors</h2>
+          <a href="/contributors" className="text-sm text-slate-300 hover:underline">
+            View all contributors →
+          </a>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {contributors.slice(0, 8).map((contributor) => (
+            <ContributorCard
+              key={contributor.login}
+              name={contributor.login}
+              avatar={contributor.avatar}
+              github={contributor.url}
+              contributions={contributor.contributions}
+            />
+          ))}
+        </div>
       </section>
 
       {/* FAQ */}
