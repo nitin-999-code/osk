@@ -1,11 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getGitHubAvatar, getMultipleGitHubUsers } from '../utils/githubApi';
+import LoadingSpinner from '../components/shared/LoadingSpinner';
 
 const Contributors = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [contributors, setContributors] = useState([]);
 
-  // Mock contributors data - in a real app, this would come from GitHub API
-  const contributors = [
+  // Real contributors data with GitHub integration
+  const mockContributors = [
     {
       id: 1,
       name: "Ahmad Sheikh",
@@ -137,6 +141,51 @@ const Contributors = () => {
     }
   ];
 
+  // Fetch GitHub data for contributors
+  useEffect(() => {
+    const fetchContributorsData = async () => {
+      setIsLoading(true);
+      try {
+        // Get usernames from mock data
+        const usernames = mockContributors.map(contributor => contributor.username);
+        
+        // Fetch GitHub data for all contributors
+        const githubData = await getMultipleGitHubUsers(usernames);
+        
+        // Merge mock data with GitHub data
+        const updatedContributors = mockContributors.map((contributor, index) => {
+          const githubInfo = githubData[index];
+          return {
+            ...contributor,
+            avatar: githubInfo.avatar,
+            name: githubInfo.name || contributor.name,
+            bio: githubInfo.bio || contributor.bio,
+            location: githubInfo.location || contributor.location,
+            githubUrl: githubInfo.githubUrl,
+            joinDate: githubInfo.joinDate ? new Date(githubInfo.joinDate).toISOString().split('T')[0] : contributor.joinDate,
+            publicRepos: githubInfo.publicRepos,
+            followers: githubInfo.followers,
+            following: githubInfo.following
+          };
+        });
+        
+        setContributors(updatedContributors);
+      } catch (error) {
+        console.error('Error fetching GitHub data:', error);
+        // Fallback to mock data with GitHub avatars
+        const fallbackContributors = mockContributors.map(contributor => ({
+          ...contributor,
+          avatar: getGitHubAvatar(contributor.username)
+        }));
+        setContributors(fallbackContributors);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchContributorsData();
+  }, []);
+
   const levels = [
     { value: 'all', label: 'All Contributors', icon: '👥' },
     { value: 'expert', label: 'Expert', icon: '🌟' },
@@ -170,13 +219,25 @@ const Contributors = () => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="pt-20 min-h-screen bg-gradient-to-br from-gray-50 to-indigo-50 flex items-center justify-center">
+        <LoadingSpinner 
+          size="large" 
+          color="blue" 
+          text="Loading contributors from GitHub..." 
+        />
+      </div>
+    );
+  }
+
   return (
-    <div className="">
+    <div className="pt-20">
       {/* Header Section */}
       <section className="bg-gradient-to-r from-gray-50 to-indigo-50 py-12 text-center">
-        <div className="max-w-[1200px] mx-auto px-5"> 
+        <div className="max-w-3xl mx-auto px-8">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our Contributors</h1>
-          <p className="text-lg md:text-xl text-gray-500 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
             Meet the amazing people who make Open Source Kashmir possible. 
             Our contributors come from all backgrounds and skill levels, united by their passion for open source.
           </p>
@@ -185,7 +246,7 @@ const Contributors = () => {
 
       {/* Stats Section */}
       <section className="bg-white py-12">
-        <div className="max-w-[1200px] mx-auto px-5"> 
+        <div className="max-w-6xl mx-auto px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 place-items-center">
             {stats.map((stat) => (
               <div
@@ -203,7 +264,7 @@ const Contributors = () => {
 
       {/* Featured Contributors Section */}
       <section className="bg-gray-50 py-12">
-        <div className="max-w-[1200px] mx-auto px-5"> 
+        <div className="max-w-6xl mx-auto px-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Featured Contributors</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredContributors.map((contributor) => (
@@ -226,8 +287,8 @@ const Contributors = () => {
       </section>
 
       {/* Filters and Search */}
-      <section className="bg-white py-8 border-b border-gray-200 sticky top-0 z-10"> 
-        <div className="max-w-[1200px] mx-auto px-5"> 
+      <section className="bg-white py-8 border-b border-gray-200 sticky top-20 z-10">
+        <div className="max-w-6xl mx-auto px-8">
           <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4 flex-wrap">
             <h2 className="text-2xl font-bold text-gray-900 text-center md:text-left">All Contributors</h2>
             <div className="relative max-w-xs w-full md:w-auto">
@@ -262,7 +323,7 @@ const Contributors = () => {
 
       {/* Contributors Grid */}
       <section className="bg-gray-50 py-12">
-        <div className="max-w-[1200px] mx-auto px-5"> 
+        <div className="max-w-6xl mx-auto px-8">
           {filteredContributors.length > 0 ? (
             <>
               <div className="text-gray-600 mb-8 font-medium">
@@ -270,19 +331,10 @@ const Contributors = () => {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredContributors.map((contributor) => (
-                  <div 
-                    key={contributor.id} 
-                    // Enhanced styling for the featured contributor (Ahmad Sheikh)
-                    className={`bg-white rounded-xl p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl
-                      ${contributor.featured ? 'border-4 border-yellow-400 ring-4 ring-amber-100 shadow-amber-300/80' : 'shadow-gray-200/50'}`}
-                  >
+                  <div key={contributor.id} className="bg-white rounded-xl p-6 shadow-lg shadow-gray-200/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                     <div className="flex items-center gap-4 mb-4">
                       <div className="relative w-15 h-15 flex-shrink-0">
                         <img src={contributor.avatar} alt={contributor.name} className="w-full h-full rounded-full object-cover" />
-                        
-                        {/* Crown for Featured/Core Maintainer */}
-                        {contributor.featured && <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 text-2xl">👑</div>}
-
                         {contributor.streak > 0 && (
                           <div className="absolute -bottom-1 -right-1 bg-gradient-to-r from-amber-500 to-amber-700 text-white py-0.5 px-2 rounded-full text-xs font-bold border-2 border-white">
                             {contributor.streak}🔥
@@ -291,9 +343,7 @@ const Contributors = () => {
                       </div>
                       <div className="min-w-0">
                         <h3 className="text-lg font-bold text-gray-900 truncate">{contributor.name}</h3>
-                        <p className={`text-sm truncate ${contributor.featured ? 'text-red-600 font-extrabold' : 'text-gray-600'}`}>
-                           @{contributor.username}
-                        </p>
+                        <p className="text-gray-600 text-sm truncate">@{contributor.username}</p>
                         <span className={`inline-block py-0.5 px-2 rounded-full text-xs font-bold uppercase tracking-wide ${getLevelBadgeColor(contributor.level)}`}>
                           {contributor.level}
                         </span>
@@ -359,7 +409,7 @@ const Contributors = () => {
 
       {/* Join CTA */}
       <section className="bg-gradient-to-r from-gray-900 to-gray-800 py-16 text-white">
-        <div className="max-w-[1200px] mx-auto px-5 text-center"> 
+        <div className="max-w-4xl mx-auto px-8 text-center">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Join Our Community</h2>
             <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
