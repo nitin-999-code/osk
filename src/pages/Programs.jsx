@@ -65,18 +65,6 @@ const Programs = () => {
       logo: mlhLogo
     },
     {
-      title: "Season of Docs",
-      description: "Brings technical writers and open source projects together to improve documentation. Writers work with mentors from open source organizations.",
-      organization: "Google",
-      duration: "3-5 months",
-      stipend: "$2500-$15000",
-      applicationDeadline: "April 2024",
-      skills: ["Technical Writing", "Documentation", "Communication"],
-      link: "https://developers.google.com/season-of-docs",
-      category: "documentation",
-      logo: seasonofDocsLogo
-    },
-    {
       title: "GitHub Campus Experts",
       description: "A program for student leaders passionate about growing the developer community at their school. Experts receive training and support.",
       organization: "GitHub",
@@ -112,6 +100,42 @@ const Programs = () => {
       link: "https://codeheat.org/",
       category: "contest",
       logo: fossasiaLogo
+    },
+    {
+      title: "C4GT (Code for Good Together)",
+      description: "A comprehensive program that brings together developers, designers, and contributors to work on open source projects that create positive social impact. Focus on building sustainable solutions for communities.",
+      organization: "C4GT Foundation",
+      duration: "6 months",
+      stipend: "$2000-$5000",
+      applicationDeadline: "January",
+      skills: ["Full-Stack Development", "UI/UX Design", "Project Management", "Social Impact"],
+      link: "https://c4gt.org/",
+      category: "fellowship",
+      logo: codeforgoodLogo
+    },
+    {
+      title: "Google Season of Docs",
+      description: "Brings technical writers and open source projects together to improve documentation. Writers work with mentors from open source organizations to create better docs.",
+      organization: "Google",
+      duration: "3-5 months",
+      stipend: "$2500-$15000",
+      applicationDeadline: "April",
+      skills: ["Technical Writing", "Documentation", "Communication", "Open Source"],
+      link: "https://developers.google.com/season-of-docs",
+      category: "documentation",
+      logo: seasonofDocsLogo
+    },
+    {
+      title: "Rails Girls Summer of Code",
+      description: "A global fellowship program for women and non-binary coders. Participants work on open source projects with the support of mentors and coaches.",
+      organization: "Rails Girls",
+      duration: "3 months",
+      stipend: "€300-€500/month",
+      applicationDeadline: "March",
+      skills: ["Ruby on Rails", "Open Source", "Mentoring", "Community"],
+      link: "https://railsgirlssummerofcode.org/",
+      category: "fellowship",
+      logo: githubLogo
     }
   ];
 
