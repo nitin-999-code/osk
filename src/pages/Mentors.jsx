@@ -138,12 +138,10 @@ const Mentors = () => {
     if (selectedCategory !== 'all') {
       list = list.filter(m => m.category === selectedCategory);
     }
-
     // Online only
     if (onlineOnly) {
       list = list.filter(m => m.online);
     }
-
     // Search by name, title, company, expertise, location
     if (searchTerm.trim()) {
       const q = searchTerm.toLowerCase();
@@ -179,14 +177,17 @@ const Mentors = () => {
   };
 
   return (
-    <div className="pt-20 w-full overflow-x-hidden overflow-y-visible box-border">
+    <div className="w-full overflow-x-hidden">
       {/* Header Section */}
-      <section className="bg-gradient-to-r from-gray-100 to-white py-16 text-center w-full">
-        <div className="max-w-6xl w-full mx-auto px-10 box-border">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">Meet Our Mentors</h1>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Connect with experienced professionals who are passionate about helping you grow 
-            in your tech journey. Our mentors provide guidance, code reviews, and career advice.
+      <section className="bg-gradient-to-r from-gray-100 to-white py-16 text-center">
+        <div className="max-w-[1200px] mx-auto px-5">
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">
+            Meet Our Mentors
+          </h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Connect with experienced professionals who are passionate about
+            helping you grow in your tech journey. Our mentors provide guidance,
+            code reviews, and career advice.
           </p>
         </div>
       </section>

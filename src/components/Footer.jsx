@@ -26,7 +26,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a 
-                href="/" 
+                href="https://twitter.com/OpenSourceKashmir" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-10 h-10 bg-blue-500/20 rounded-lg text-gray-400 no-underline transition-all duration-300 hover:bg-blue-500/30 hover:text-blue-400 hover:-translate-y-0.5"
@@ -37,7 +37,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a 
-                href="/" 
+                href="https://linkedin.com/company/open-source-kashmir" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-10 h-10 bg-blue-500/20 rounded-lg text-gray-400 no-underline transition-all duration-300 hover:bg-blue-500/30 hover:text-blue-400 hover:-translate-y-0.5"
@@ -58,6 +58,8 @@ const Footer = () => {
               <Link to="/programs" className="text-gray-400 no-underline transition-colors duration-300 text-sm hover:text-blue-400">Programs</Link>
               <Link to="/mentors" className="text-gray-400 no-underline transition-colors duration-300 text-sm hover:text-blue-400">Mentors</Link>
               <Link to="/contributors" className="text-gray-400 no-underline transition-colors duration-300 text-sm hover:text-blue-400">Contributors</Link>
+              <Link to="/learning" className="text-gray-400 no-underline transition-colors duration-300 text-sm hover:text-blue-400">Learning Tracks</Link>
+              <Link to="/community" className="text-gray-400 no-underline transition-colors duration-300 text-sm hover:text-blue-400">Community</Link>
             </div>
           </div>
 
@@ -65,10 +67,10 @@ const Footer = () => {
           <div className="flex flex-col gap-6">
             <h4 className="text-lg font-semibold text-white m-0 mb-4">Programs</h4>
             <div className="flex flex-col gap-3">
-              <a href="#" className="text-gray-400 no-underline transition-colors duration-300 text-sm hover:text-blue-400">Google Summer of Code</a>
-              <a href="#" className="text-gray-400 no-underline transition-colors duration-300 text-sm hover:text-blue-400">LFX Mentorship</a>
-              <a href="#" className="text-gray-400 no-underline transition-colors duration-300 text-sm hover:text-blue-400">Outreachy</a>
-              <a href="#" className="text-gray-400 no-underline transition-colors duration-300 text-sm hover:text-blue-400">MLH Fellowship</a>
+              <a href="https://summerofcode.withgoogle.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 no-underline transition-colors duration-300 text-sm hover:text-blue-400">Google Summer of Code</a>
+              <a href="https://lfx.linuxfoundation.org/tools/mentorship/" target="_blank" rel="noopener noreferrer" className="text-gray-400 no-underline transition-colors duration-300 text-sm hover:text-blue-400">LFX Mentorship</a>
+              <a href="https://www.outreachy.org/" target="_blank" rel="noopener noreferrer" className="text-gray-400 no-underline transition-colors duration-300 text-sm hover:text-blue-400">Outreachy</a>
+              <a href="https://fellowship.mlh.io/" target="_blank" rel="noopener noreferrer" className="text-gray-400 no-underline transition-colors duration-300 text-sm hover:text-blue-400">MLH Fellowship</a>
             </div>
           </div>
 
