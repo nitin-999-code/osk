@@ -171,12 +171,12 @@ const Contributors = () => {
   };
 
   return (
-    <div className="pt-20">
+    <div className="">
       {/* Header Section */}
       <section className="bg-gradient-to-r from-gray-50 to-indigo-50 py-12 text-center">
-        <div className="max-w-3xl mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-5"> 
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our Contributors</h1>
-          <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-500 max-w-4xl mx-auto leading-relaxed">
             Meet the amazing people who make Open Source Kashmir possible. 
             Our contributors come from all backgrounds and skill levels, united by their passion for open source.
           </p>
@@ -185,7 +185,7 @@ const Contributors = () => {
 
       {/* Stats Section */}
       <section className="bg-white py-12">
-        <div className="max-w-6xl mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-5"> 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 place-items-center">
             {stats.map((stat) => (
               <div
@@ -203,7 +203,7 @@ const Contributors = () => {
 
       {/* Featured Contributors Section */}
       <section className="bg-gray-50 py-12">
-        <div className="max-w-6xl mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-5"> 
           <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Featured Contributors</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredContributors.map((contributor) => (
@@ -226,8 +226,8 @@ const Contributors = () => {
       </section>
 
       {/* Filters and Search */}
-      <section className="bg-white py-8 border-b border-gray-200 sticky top-20 z-10">
-        <div className="max-w-6xl mx-auto px-8">
+      <section className="bg-white py-8 border-b border-gray-200 sticky top-0 z-10"> 
+        <div className="max-w-[1200px] mx-auto px-5"> 
           <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4 flex-wrap">
             <h2 className="text-2xl font-bold text-gray-900 text-center md:text-left">All Contributors</h2>
             <div className="relative max-w-xs w-full md:w-auto">
@@ -262,7 +262,7 @@ const Contributors = () => {
 
       {/* Contributors Grid */}
       <section className="bg-gray-50 py-12">
-        <div className="max-w-6xl mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-5"> 
           {filteredContributors.length > 0 ? (
             <>
               <div className="text-gray-600 mb-8 font-medium">
@@ -270,10 +270,19 @@ const Contributors = () => {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredContributors.map((contributor) => (
-                  <div key={contributor.id} className="bg-white rounded-xl p-6 shadow-lg shadow-gray-200/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                  <div 
+                    key={contributor.id} 
+                    // Enhanced styling for the featured contributor (Ahmad Sheikh)
+                    className={`bg-white rounded-xl p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl
+                      ${contributor.featured ? 'border-4 border-yellow-400 ring-4 ring-amber-100 shadow-amber-300/80' : 'shadow-gray-200/50'}`}
+                  >
                     <div className="flex items-center gap-4 mb-4">
                       <div className="relative w-15 h-15 flex-shrink-0">
                         <img src={contributor.avatar} alt={contributor.name} className="w-full h-full rounded-full object-cover" />
+                        
+                        {/* Crown for Featured/Core Maintainer */}
+                        {contributor.featured && <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 text-2xl">👑</div>}
+
                         {contributor.streak > 0 && (
                           <div className="absolute -bottom-1 -right-1 bg-gradient-to-r from-amber-500 to-amber-700 text-white py-0.5 px-2 rounded-full text-xs font-bold border-2 border-white">
                             {contributor.streak}🔥
@@ -282,7 +291,9 @@ const Contributors = () => {
                       </div>
                       <div className="min-w-0">
                         <h3 className="text-lg font-bold text-gray-900 truncate">{contributor.name}</h3>
-                        <p className="text-gray-600 text-sm truncate">@{contributor.username}</p>
+                        <p className={`text-sm truncate ${contributor.featured ? 'text-red-600 font-extrabold' : 'text-gray-600'}`}>
+                           @{contributor.username}
+                        </p>
                         <span className={`inline-block py-0.5 px-2 rounded-full text-xs font-bold uppercase tracking-wide ${getLevelBadgeColor(contributor.level)}`}>
                           {contributor.level}
                         </span>
@@ -348,7 +359,7 @@ const Contributors = () => {
 
       {/* Join CTA */}
       <section className="bg-gradient-to-r from-gray-900 to-gray-800 py-16 text-white">
-        <div className="max-w-4xl mx-auto px-8 text-center">
+        <div className="max-w-[1200px] mx-auto px-5 text-center"> 
           <div className="max-w-2xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Join Our Community</h2>
             <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
