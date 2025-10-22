@@ -3,6 +3,7 @@ import ProgramCard from '../components/ProgramCard';
 import Hero from '../components/Hero';
 import About from '../components/About';
 import { Users, UserPlus, Globe, FolderKanban, GraduationCap, Target, TrendingUp, CalendarRange } from "lucide-react";
+
 const Home = () => {
   const featuredPrograms = [
     {
@@ -29,38 +30,61 @@ const Home = () => {
   ];
 
   const stats = [
-    { number: "50+", label: "Contributors", icon: <UserPlus color="#22c55e" size={40} /> },
+    { 
+      number: "50+", 
+      label: "Contributors", 
+      icon: <UserPlus className="text-green-500" size={40} />,
+      bgColor: "bg-green-500/10"
+    },
     {
-      number: "25+", label: "Projects", icon: <FolderKanban color="#6366f1" size={40} /> },
-    { number: "15+", label: "Mentors", icon: <GraduationCap color="#3b82f6" size={40} /> },
-    { number: "5+", label: "Programs", icon: <CalendarRange color="#22d3ee" size={40} /> }
+      number: "25+", 
+      label: "Projects", 
+      icon: <FolderKanban className="text-indigo-500" size={40} />,
+      bgColor: "bg-indigo-500/10"
+    },
+    { 
+      number: "15+", 
+      label: "Mentors", 
+      icon: <GraduationCap className="text-blue-500" size={40} />,
+      bgColor: "bg-blue-500/10"
+    },
+    { 
+      number: "5+", 
+      label: "Programs", 
+      icon: <CalendarRange className="text-cyan-400" size={40} />,
+      bgColor: "bg-cyan-500/10"
+    }
   ];
 
   const features = [
     {
       title: "Expert Mentorship",
       description: "Learn from experienced developers and industry professionals who guide you through your open source journey.",
-      icon: <Target color="#ef4444" size={40} />  
+      icon: <Target className="text-red-500" size={40} />,
+      bgColor: "bg-red-500/10"
     },
     {
       title: "Real Projects",
       description: "Work on meaningful projects that solve real-world problems and make a positive impact on the community.",
-      icon: <FolderKanban color="#6366f1" size={40} />
+      icon: <FolderKanban className="text-indigo-500" size={40} />,
+      bgColor: "bg-indigo-500/10"
     },
     {
       title: "Global Network",
       description: "Connect with developers worldwide and build lasting relationships in the open source ecosystem.",
-      icon: <Globe color="#22c55e" size={40} />
+      icon: <Globe className="text-green-500" size={40} />,
+      bgColor: "bg-green-500/10"
     },
     {
       title: "Career Growth",
       description: "Gain valuable experience and skills that boost your career prospects in the tech industry.",
-      icon: <TrendingUp color="#43ba7b" size={40} />
+      icon: <TrendingUp className="text-emerald-500" size={40} />,
+      bgColor: "bg-emerald-500/10"
     }
   ];
 
   return (
-    <div className="pt-20">
+    <div className="bg-dark-background text-gray-100 min-h-screen">
       {/* Hero Section */}
       <Hero />
       
@@ -68,17 +92,27 @@ const Home = () => {
       <About />
 
       {/* Stats Section */}
-      <section className="bg-[#0b1220] py-12">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {stats.map((stat) => (
+      <section className="py-16 bg-dark-surface">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
+              Our Impact in Numbers
+            </h2>
+            <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-400 sm:mt-4">
+              Join our growing community of open source enthusiasts
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {stats.map((stat, index) => (
               <div
                 key={stat.label}
-                className="flex flex-col items-center justify-center bg-[#10172a] p-6 rounded-2xl shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300"
+                className={`${stat.bgColor} p-6 rounded-2xl text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-1`}
               >
-                <div className="text-4xl">{stat.icon}</div>
-                <div className="text-3xl font-extrabold text-white mt-2">{stat.number}</div>
-                <p className="text-slate-400 mt-1">{stat.label}</p>
+                <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-opacity-20 mb-4">
+                  {stat.icon}
+                </div>
+                <div className="text-3xl font-bold text-white">{stat.number}</div>
+                <p className="mt-2 text-gray-300">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -86,18 +120,25 @@ const Home = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-[1200px] mx-auto px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose Open Source Kashmir?</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+      <section className="py-16 bg-dark-surface-light">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
+              Why Choose Open Source Kashmir?
+            </h2>
+            <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-400">
               We provide everything you need to succeed in the open source world
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {features.map((feature, index) => (
-              <div key={index} className="flex flex-col items-center bg-white p-8 rounded-2xl text-center shadow-lg transition-transform duration-300 hover:-translate-y-2">
-                <div className="text-5xl mb-6">{feature.icon}</div>
+              <div 
+                key={index} 
+                className={`${feature.bgColor} p-8 rounded-2xl text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-1`}
+              >
+                <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-opacity-20 mb-6">
+                  {feature.icon}
+                </div>
                 <h3 className="text-2xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{feature.description}</p>
               </div>
