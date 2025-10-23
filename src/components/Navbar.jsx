@@ -19,7 +19,7 @@ const Navbar = () => {
   
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-lg z-1000`}>
+    <nav className={`fixed top-0 left-0 right-0 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-lg z-50`}>
       <div className="max-w-[1200px] w-full mx-auto py-4 pl-6 pr-8 flex justify-between items-center box-border">
         <Link to="/" className="no-underline text-blue-700 dark:text-blue-400 text-3xl font-extrabold transition-colors duration-300 hover:scale-105 transform">
           <span className="bg-gradient-to-r from-blue-800 to-blue-600 dark:from-blue-400 dark:to-blue-600 bg-clip-text text-transparent">OSK</span>
