@@ -172,7 +172,7 @@ const Programs = () => {
       </section>
 
       {/* Filters Section */}
-      <section className="bg-white border-b border-gray-300 py-2.5 sticky top-0 z-50">
+      <section className="bg-white border-b border-gray-300 py-2.5 sticky top-0 z-40">
         <div className="max-w-[1200px] mx-auto">
           <div className="flex items-center justify-between flex-wrap gap-4 py-2.5 px-5">
             <div className="relative flex-1 basis-[250px] min-w-[250px] max-w-[350px]">
