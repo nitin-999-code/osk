@@ -6,7 +6,7 @@
 <title>Living Orb Animation</title>
 <style>
   body {
-    margin: 0;
+    margin: 0; 
     height: 100vh;
     background: radial-gradient(circle at center, #0f2027, #203a43, #2c5364);
     overflow: hidden;
